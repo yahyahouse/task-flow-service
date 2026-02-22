@@ -127,11 +127,3 @@ curl http://localhost:8080/api/reports/status-count
 ```bash
 curl http://localhost:8080/api/reports/overdue
 ```
-
-## Catatan Desain
-
-- **Spring IoC**: constructor injection konsisten pada `Controller -> Service -> Repository`.
-- **Java Stream**: perhitungan `completionRate` dan agregasi status di endpoint summary.
-- **Native SQL**: reporting `status-count` dan `overdue` menggunakan `@Query(nativeQuery = true)`.
-- **Validation**: `title` wajib pada create/update, dengan global exception handler untuk response error konsisten.
-- **Logging**: `common-logger` aktif via `@Loggable` pada controller dan service, plus correlation id (`X-Correlation-Id`).
