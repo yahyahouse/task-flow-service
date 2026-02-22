@@ -13,6 +13,7 @@ import com.yahyahouse.taskflow.repository.TaskRepository;
 import com.yahyahouse.taskflow.util.ResourceNotFoundException;
 import com.yahyahouse.taskflow.util.TaskFlowException;
 import com.yahyahouse.taskflow.util.ValidationUtil;
+import com.yahyahouse.taskflow.util.CommonUtil;
 import com.yahyahouse.taskflow.util.transaction.TransactionContext;
 
 import java.time.LocalDate;
@@ -68,7 +69,7 @@ public class TaskServiceImpl implements TaskService {
         try {
             ValidationUtil.validateTransactionId(transactionId);
             applyTransactionId(transactionId);
-            String normalizedKeyword = (keyword == null || keyword.isBlank()) ? null : keyword.trim();
+            String normalizedKeyword = CommonUtil.trimToNull(keyword);
             return taskRepository.findByFilters(status, priority, normalizedKeyword, dueDateFrom, dueDateTo)
                     .stream()
                     .map(task -> taskMapper.toResponse(task, transactionId))

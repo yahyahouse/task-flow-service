@@ -1,8 +1,8 @@
 package com.yahyahouse.taskflow.util.transaction;
 
+import com.yahyahouse.taskflow.util.CommonUtil;
 import java.util.UUID;
 import org.slf4j.MDC;
-import org.springframework.util.StringUtils;
 
 public final class TransactionContext {
 
@@ -13,8 +13,9 @@ public final class TransactionContext {
     }
 
     public static void set(String transactionId) {
-        if (StringUtils.hasText(transactionId)) {
-            MDC.put(MDC_KEY, transactionId.trim());
+        String normalizedTransactionId = CommonUtil.trimToNull(transactionId);
+        if (normalizedTransactionId != null) {
+            MDC.put(MDC_KEY, normalizedTransactionId);
         }
     }
 
@@ -24,7 +25,7 @@ public final class TransactionContext {
 
     public static String currentOrGenerate() {
         String transactionId = current();
-        if (!StringUtils.hasText(transactionId)) {
+        if (!CommonUtil.hasText(transactionId)) {
             transactionId = UUID.randomUUID().toString();
             set(transactionId);
         }

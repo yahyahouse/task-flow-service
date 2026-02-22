@@ -4,7 +4,6 @@ import com.yahyahouse.taskflow.model.request.CreateTaskRequest;
 import com.yahyahouse.taskflow.model.request.UpdateTaskRequest;
 import com.yahyahouse.taskflow.model.request.UpdateTaskStatusRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.StringUtils;
 
 public final class ValidationUtil {
 
@@ -52,7 +51,7 @@ public final class ValidationUtil {
     }
 
     public static void validateRequiredText(String value, String fieldName) {
-        if (!StringUtils.hasText(value)) {
+        if (!CommonUtil.hasText(value)) {
             throw badRequest(fieldName + " is required");
         }
     }

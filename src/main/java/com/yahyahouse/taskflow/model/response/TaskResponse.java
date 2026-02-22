@@ -20,8 +20,8 @@ public class TaskResponse implements TransactionAware {
     private String description;
     private TaskStatus status;
     private TaskPriority priority;
-    private LocalDate dueDate;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String dueDate;
+    private String createdAt;
+    private String updatedAt;
 
 }
