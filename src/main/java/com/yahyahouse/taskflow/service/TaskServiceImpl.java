@@ -90,9 +90,7 @@ public class TaskServiceImpl implements TaskService {
             ValidationUtil.validateTaskId(id);
             Task task = findTaskOrThrow(id);
             return taskMapper.toResponse(task, transactionId);
-        } catch (TaskFlowException ex) {
-            throw ex;
-        } catch (ResourceNotFoundException ex) {
+        } catch (TaskFlowException | ResourceNotFoundException ex) {
             throw ex;
         } catch (DataAccessException ex) {
             throw new TaskFlowException("Database error", ex, HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -117,9 +115,7 @@ public class TaskServiceImpl implements TaskService {
             task.setDueDate(request.getDueDate());
             Task updatedTask = taskRepository.save(task);
             return taskMapper.toResponse(updatedTask, transactionId);
-        } catch (TaskFlowException ex) {
-            throw ex;
-        } catch (ResourceNotFoundException ex) {
+        } catch (TaskFlowException | ResourceNotFoundException ex) {
             throw ex;
         } catch (DataAccessException ex) {
             throw new TaskFlowException("Database error", ex, HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -140,11 +136,9 @@ public class TaskServiceImpl implements TaskService {
             task.setStatus(request.getStatus());
             Task updatedTask = taskRepository.save(task);
             return taskMapper.toResponse(updatedTask, transactionId);
-        } catch (TaskFlowException ex) {
+        } catch (TaskFlowException | ResourceNotFoundException ex) {
             throw ex;
-        } catch (ResourceNotFoundException ex) {
-            throw ex;
-        } catch (DataAccessException ex) {
+        }  catch (DataAccessException ex) {
             throw new TaskFlowException("Database error", ex, HttpStatus.INTERNAL_SERVER_ERROR.value());
         } catch (Exception ex) {
             throw new TaskFlowException("Internal server error", ex, HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -159,11 +153,9 @@ public class TaskServiceImpl implements TaskService {
             ValidationUtil.validateTaskId(id);
             Task task = findTaskOrThrow(id);
             taskRepository.delete(task);
-        } catch (TaskFlowException ex) {
+        } catch (TaskFlowException | ResourceNotFoundException ex) {
             throw ex;
-        } catch (ResourceNotFoundException ex) {
-            throw ex;
-        } catch (DataAccessException ex) {
+        }  catch (DataAccessException ex) {
             throw new TaskFlowException("Database error", ex, HttpStatus.INTERNAL_SERVER_ERROR.value());
         } catch (Exception ex) {
             throw new TaskFlowException("Internal server error", ex, HttpStatus.INTERNAL_SERVER_ERROR.value());

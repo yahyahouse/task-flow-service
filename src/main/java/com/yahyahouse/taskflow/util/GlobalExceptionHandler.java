@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
             ResourceNotFoundException ex,
             HttpServletRequest request
     ) {
-        return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     @ExceptionHandler(TaskFlowException.class)

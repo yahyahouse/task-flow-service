@@ -14,8 +14,6 @@ import lombok.Setter;
 public class ErrorResponse implements TransactionAware {
 
     private int httpStatus;
-
-    @JsonProperty("ErrorMessage")
     private String errorMessage;
 
     private String transactionId;
